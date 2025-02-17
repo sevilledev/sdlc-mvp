@@ -1,0 +1,23 @@
+{
+  "name": "sdlc-mvp",
+  "version": "1.0.0",
+  "main": "api.js",
+  "scripts": {
+    "node": "node api.js",
+    "dev": "nodemon api --ignore client/",
+    "client": "cd client && npm run dev",
+    "build": "npm i && cd client && npm i && npm run build && cd .."
+  },
+  "author": "sevilledev",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
