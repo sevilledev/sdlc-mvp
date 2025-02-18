@@ -3,5 +3,5 @@ export const App = () => {
     <div>
       <h1>presenterkit</h1>
     </div>
-  )
-}
+  );
+};
