@@ -65,8 +65,10 @@ jobs:
       
       - name: Install Koyeb CLI
         run: |
-          curl -fsSL https://raw.githubusercontent.com/koyeb/koyeb-cli/release/install.sh | sh
+          wget -qO koyeb.tar.gz https://github.com/koyeb/koyeb-cli/releases/latest/download/koyeb-cli_linux_x86_64.tar.gz
+          tar -xzf koyeb.tar.gz
           sudo mv koyeb /usr/local/bin/
+          rm koyeb.tar.gz
       
       - name: Deploy to Koyeb
         uses: koyeb/action-git-deploy@v1
