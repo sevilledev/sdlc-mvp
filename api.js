@@ -1,8 +1,12 @@
-const express = require('express');
-const path = require('node:path');
-const cors = require('cors');
+import path from 'node:path';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import cors from 'cors';
+import express from 'express';
+import 'dotenv/config';
 
-require('dotenv/config');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // MARK: Express
 const app = express();
