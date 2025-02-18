@@ -63,11 +63,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - name: Install Koyeb CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/koyeb/koyeb-cli/main/install.sh | sh
+          sudo mv ./koyeb /usr/local/bin/
+      
       - name: Deploy to Koyeb
         uses: koyeb/action-git-deploy@v1
+        env:
+          KOYEB_TOKEN: ${{ secrets.KOYEB_TOKEN }}
         with:
           app-name: sdlc-mvp
           service-name: sdlc-mvp-service
-          token: ${{ secrets.KOYEB_TOKEN }}
           service-env: |
             PORT=50000
