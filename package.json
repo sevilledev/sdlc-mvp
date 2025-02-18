@@ -29,9 +29,9 @@
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "biome format",
-      "biome check",
-      "eslint"
+      "biome check --apply",
+      "biome format --write",
+      "eslint --fix"
     ]
   }
 }
