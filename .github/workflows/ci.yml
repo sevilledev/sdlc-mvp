@@ -56,3 +56,18 @@ jobs:
           
       - name: Install dependencies and build
         run: npm run build
+    
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [lint, build]
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Deploy to Koyeb
+        uses: koyeb/action-git-deploy@v1
+        with:
+          app-name: sdlc-mvp
+          service-name: sdlc-mvp-service
+          token: ${{ secrets.KOYEB_TOKEN }}
+          service-env: |
+            PORT=50000
