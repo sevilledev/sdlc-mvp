@@ -17,7 +17,7 @@ const createWebSocketConnection = () => {
     if (socket.readyState === WebSocket.OPEN) {
       const message = {
         content,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       };
       socket.send(JSON.stringify(message));
     }
@@ -25,7 +25,7 @@ const createWebSocketConnection = () => {
 
   return {
     socket,
-    sendMessage
+    sendMessage,
   };
 };
 
