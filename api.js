@@ -21,6 +21,9 @@ const messageHistory = []; // Add message history storage
 const MAX_HISTORY = 50; // Maximum number of messages to store
 const wss = new WebSocketServer({ server });
 
+// Update username generation
+const generateUsername = () => `user${Math.floor(Math.random() * 1000)}`;
+
 // Queue processor
 const processQueue = () => {
   if (messageQueue.length > 0) {
@@ -50,8 +53,10 @@ wss.on('listening', () => {
 });
 
 wss.on('connection', (ws) => {
+  const username = generateUsername();
+  ws.username = username;
   clients.add(ws);
-  console.log('Client connected');
+  console.log(`Client connected as ${username}`);
 
   // Send message history to new client
   // biome-ignore lint/complexity/noForEach: <explanation>
@@ -62,7 +67,13 @@ wss.on('connection', (ws) => {
   ws.on('message', (data) => {
     try {
       const message = JSON.parse(data);
-      messageQueue.push(message);
+      // Add username to the message
+      const messageWithUser = {
+        ...message,
+        username: ws.username,
+        timestamp: new Date().toISOString(),
+      };
+      messageQueue.push(messageWithUser);
       processQueue();
     } catch (error) {
       console.error('Error processing message:', error);

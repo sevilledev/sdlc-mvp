@@ -47,7 +47,7 @@ export const Chat = () => {
         <div className='h-96 overflow-y-auto mb-4 p-2 border rounded'>
           {messages.map((msg) => (
             <div key={msg.id} className='mb-2'>
-              <span className='font-bold'>{msg.type}:</span> {msg.content}
+              <span className='font-bold'>{msg.username}:</span> {msg.content}
             </div>
           ))}
         </div>

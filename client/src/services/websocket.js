@@ -7,11 +7,26 @@ const createWebSocketConnection = () => {
 
   socket.onmessage = (event) => {
     const message = JSON.parse(event.data);
-    // Add unique ID to each message
-    return { ...message, id: Math.random().toString(36).substr(2, 9) };
+    return {
+      ...message,
+      id: Math.random().toString(36).substr(2, 9),
+    };
   };
 
-  return socket;
+  const sendMessage = (content) => {
+    if (socket.readyState === WebSocket.OPEN) {
+      const message = {
+        content,
+        timestamp: new Date().toISOString()
+      };
+      socket.send(JSON.stringify(message));
+    }
+  };
+
+  return {
+    socket,
+    sendMessage
+  };
 };
 
 export const websocketService = createWebSocketConnection();
