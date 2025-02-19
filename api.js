@@ -100,13 +100,25 @@ setInterval(() => {
 app.use(cors());
 app.use(express.json());
 
+// Update static file serving with correct MIME types
+app.use(
+  '/',
+  express.static(path.join(__dirname, 'client', 'dist'), {
+    setHeaders: (res, path) => {
+      if (path.endsWith('.js')) {
+        res.setHeader('Content-Type', 'application/javascript');
+      }
+    },
+  }),
+);
+
 // MARK: Server
 server.listen(process.env.PORT, () =>
   console.log(`\x1b[33mApp running on 🔥 PORT: ${process.env.PORT} \x1b[0m\n`),
 );
 
 // MARK: Routes
-app.use('/', express.static(path.join(__dirname, 'client', 'dist')));
+// app.use('/', express.static(path.join(__dirname, 'client', 'dist')));
 app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html')),
 );
