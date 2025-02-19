@@ -101,7 +101,7 @@ app.use(cors());
 app.use(express.json());
 
 // MARK: Server
-server.listen(process.env.PORT, '0.0.0.0', () =>
+server.listen(process.env.PORT, () =>
   console.log(`\x1b[33mApp running on 🔥 PORT: ${process.env.PORT} \x1b[0m\n`),
 );
 
