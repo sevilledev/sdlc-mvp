@@ -6,7 +6,9 @@ export const Chat = () => {
   const [ws, setWs] = useState(null);
 
   useEffect(() => {
-    const socket = new WebSocket(`ws://${window.location.hostname}:50000`);
+    const socket = new WebSocket(
+      `${import.meta.env.VITE_WS}://${window.location.hostname}:${import.meta.env.VITE_PORT}`,
+    );
 
     socket.onopen = () => {
       console.log('Connected to WebSocket');
