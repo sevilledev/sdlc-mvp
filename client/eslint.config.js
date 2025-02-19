@@ -13,7 +13,7 @@ export default [
       globals: {
         ...globals.browser,
         'import.meta': true,
-        process: true
+        process: true,
       },
       parserOptions: {
         ecmaVersion: 'latest',

@@ -1,5 +1,7 @@
 const createWebSocketConnection = () => {
-  const socket = new WebSocket(`${import.meta.env.VITE_WS}://${window.location.hostname}:${import.meta.env.VITE_PORT}`);
+  const socket = new WebSocket(
+    `${import.meta.env.VITE_WS}://${window.location.hostname}:${import.meta.env.VITE_PORT}`,
+  );
 
   socket.onopen = () => {
     console.log('Connected to WebSocket');
