@@ -1,45 +1,45 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 export const Chat = () => {
-  const [messages, setMessages] = useState([])
-  const [inputMessage, setInputMessage] = useState('')
-  const [ws, setWs] = useState(null)
+  const [messages, setMessages] = useState([]);
+  const [inputMessage, setInputMessage] = useState('');
+  const [ws, setWs] = useState(null);
 
   useEffect(() => {
-    const socket = new WebSocket(`ws://${window.location.hostname}:50000`)
+    const socket = new WebSocket(`ws://${window.location.hostname}:50000`);
 
     socket.onopen = () => {
-      console.log('Connected to WebSocket')
-    }
+      console.log('Connected to WebSocket');
+    };
 
     socket.onmessage = (event) => {
-      const message = JSON.parse(event.data)
+      const message = JSON.parse(event.data);
       const messageWithId = {
         ...message,
-        id: Math.random().toString(36).substr(2, 9)
-      }
-      setMessages((prev) => [...prev, messageWithId])
-    }
+        id: Math.random().toString(36).substr(2, 9),
+      };
+      setMessages((prev) => [...prev, messageWithId]);
+    };
 
-    setWs(socket)
+    setWs(socket);
 
     return () => {
-      socket.close()
-    }
-  }, [])
+      socket.close();
+    };
+  }, []);
 
   const sendMessage = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (inputMessage.trim() && ws) {
       const message = {
         type: 'message',
         content: inputMessage,
-        id: Math.random().toString(36).substr(2, 9)
-      }
-      ws.send(JSON.stringify(message))
-      setInputMessage('')
+        id: Math.random().toString(36).substr(2, 9),
+      };
+      ws.send(JSON.stringify(message));
+      setInputMessage('');
     }
-  }
+  };
 
   return (
     <div className='max-w-md mx-auto p-4'>
@@ -68,5 +68,5 @@ export const Chat = () => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
