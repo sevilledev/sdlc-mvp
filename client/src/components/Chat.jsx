@@ -25,12 +25,14 @@ export const Chat = () => {
         console.log('Disconnected from WebSocket');
         setIsConnected(false);
         setWs(null);
-        
+
         // Attempt to reconnect if we haven't exceeded max retries
         if (retryCount < maxRetries) {
-          console.log(`Attempting to reconnect... (${retryCount + 1}/${maxRetries})`);
+          console.log(
+            `Attempting to reconnect... (${retryCount + 1}/${maxRetries})`,
+          );
           setTimeout(() => {
-            setRetryCount(prev => prev + 1);
+            setRetryCount((prev) => prev + 1);
             connectWebSocket();
           }, 3000); // Wait 3 seconds before retrying
         }
@@ -88,20 +90,19 @@ export const Chat = () => {
           <div className='flex items-center gap-2'>
             <div
               className={`w-3 h-3 rounded-full ${
-                isConnected 
-                  ? 'bg-green-500' 
-                  : retryCount > 0 
-                    ? 'bg-yellow-500' 
+                isConnected
+                  ? 'bg-green-500'
+                  : retryCount > 0
+                    ? 'bg-yellow-500'
                     : 'bg-red-500'
               }`}
             />
             <span className='text-sm text-gray-600'>
-              {isConnected 
-                ? 'Connected' 
-                : retryCount > 0 
+              {isConnected
+                ? 'Connected'
+                : retryCount > 0
                   ? `Reconnecting... (${retryCount}/${maxRetries})`
-                  : 'Disconnected'
-              }
+                  : 'Disconnected'}
             </span>
           </div>
         </div>
