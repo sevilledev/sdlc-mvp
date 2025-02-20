@@ -4,7 +4,7 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import cors from 'cors';
 import express from 'express';
-import { WebSocketServer } from 'ws';
+import { WebSocket, WebSocketServer } from 'ws';
 import 'dotenv/config';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -53,6 +53,15 @@ wss.on('listening', () => {
 });
 
 wss.on('connection', (ws) => {
+  // Wait for connection to be established
+  if (ws.readyState !== WebSocket.OPEN) {
+    ws.on('open', () => initializeConnection(ws));
+  } else {
+    initializeConnection(ws);
+  }
+});
+
+const initializeConnection = (ws) => {
   const username = generateUsername();
   ws.username = username;
   clients.add(ws);
@@ -61,7 +70,9 @@ wss.on('connection', (ws) => {
   // Send message history to new client
   // biome-ignore lint/complexity/noForEach: <explanation>
   messageHistory.forEach((message) => {
-    ws.send(JSON.stringify(message));
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify(message));
+    }
   });
 
   ws.on('message', (data) => {
@@ -86,7 +97,7 @@ wss.on('connection', (ws) => {
   });
 
   ws.on('error', console.error);
-});
+};
 
 // Keep connections alive
 setInterval(() => {
