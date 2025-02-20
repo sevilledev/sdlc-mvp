@@ -11,7 +11,7 @@ export const Chat = () => {
   const connectWebSocket = useCallback(() => {
     try {
       const socket = new WebSocket(
-        `${import.meta.env.VITE_WS}://${window.location.hostname}:${import.meta.env.VITE_PORT}`,
+        `${import.meta.env.VITE_WS}://${window.location.hostname}:${import.meta.env.VITE_PORT}/ws`,
       );
 
       socket.onopen = () => {
