@@ -11,7 +11,7 @@ export const Chat = () => {
   const connectWebSocket = useCallback(() => {
     try {
       const socket = new WebSocket(
-        `${import.meta.env.VITE_WS}://${window.location.hostname}:${import.meta.env.VITE_PORT}/ws`,
+        `${import.meta.env.VITE_WS}://${window.location.hostname}`,
       );
 
       socket.onopen = () => {
@@ -62,6 +62,7 @@ export const Chat = () => {
   }, [retryCount]);
 
   useEffect(() => {
+    console.log('useEffect chat')
     connectWebSocket();
     return () => {
       if (ws?.readyState === WebSocket.OPEN) {
@@ -82,6 +83,8 @@ export const Chat = () => {
       setInputMessage('');
     }
   };
+
+  console.log('render chat')
 
   return (
     <div className='max-w-md mx-auto p-4'>

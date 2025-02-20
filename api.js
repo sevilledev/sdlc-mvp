@@ -19,7 +19,7 @@ const messageQueue = [];
 const clients = new Set();
 const messageHistory = []; // Add message history storage
 const MAX_HISTORY = 50; // Maximum number of messages to store
-const wss = new WebSocketServer({ server, path: '/ws' });
+const wss = new WebSocketServer({ server });
 
 // Update username generation
 const generateUsername = () => `user${Math.floor(Math.random() * 1000)}`;
